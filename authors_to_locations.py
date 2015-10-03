@@ -2,6 +2,8 @@ import csv
 import matplotlib.pyplot as plt
 
 
+DATA_FILE = "data/tweets.csv"
+
 def open_file(filename):
     return open(filename, "r")
 
@@ -10,13 +12,6 @@ def close_file(f):
 
 def setup_csv_reader(csvf):
     return csv.DictReader(csvf)
-
-# tweets_csv = open_file("tweet.csv")
-# csv_reader = setup_csv_reader(tweets_csv)
-# for row in csv_reader:
-#     print row
-#     break
-# close_file(tweets_csv)
 
 def get_author_locations(csv_reader):
     author_location_dict = { }
@@ -38,7 +33,7 @@ def get_author_locations(csv_reader):
             author_location_dict[author_id] = current_list
     return author_location_dict
 
-tweets_csv = open_file("tweet.csv")
+tweets_csv = open_file(DATA_FILE)
 csv_reader = setup_csv_reader(tweets_csv)
 
 print get_author_locations(csv_reader)
