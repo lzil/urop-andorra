@@ -1,7 +1,7 @@
 import csv
 
 
-with open('tweet.csv', 'rb') as csvfile:
+with open('data/tweet.csv', 'rb') as csvfile:
 	tweets = csv.DictReader(csvfile, dialect='excel')
 	i = 0
 	langs = {}
@@ -20,11 +20,17 @@ with open('tweet.csv', 'rb') as csvfile:
 			hrs[hr] += 1
 		else:
 			hrs[hr] = 1
+	print '*****LANGUAGES*****'
+	langList = []
 	for lang, num in langs.iteritems():
-		print lang + ': ' + str(num)
+		langList.append((lang, num))
+	langList = sorted(langList, key=lambda x: x[1])
+	for i in langList:
+		print i[0] + ': ' + str(i[1])
 	print '*****HOURS*****'
-	for i in range(24):
-		if i < 10:
-			i = '0' + str(i)
-		i = str(i)
-		print i + ': ' + str(hrs[i])
+	hourList = []
+	for hour, num in hrs.iteritems():
+		hourList.append((hour, num))
+	hourList = sorted(hourList, key=lambda x: x[0])
+	for i in hourList:
+		print i[0] + ': ' + str(i[1])
