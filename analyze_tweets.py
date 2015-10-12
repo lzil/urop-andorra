@@ -21,8 +21,6 @@ def analyze_tweets(csv_reader):
 	hours_dict = { }
 
 	for count, row in enumerate(csv_reader):
-		if (count % 250) == 0:
-			print count
 		author_id = row["author"]
 		time      = row["time"]
 		lat       = row["lat"]
