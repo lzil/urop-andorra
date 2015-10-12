@@ -54,14 +54,20 @@ def langs_to_list(lang_dict):
 	
 
 
+def main():
+	cdr_csv = open_file(DATA_FILE)
+	csv_reader = setup_csv_reader(cdr_csv)
 
-cdr_csv = open_file(DATA_FILE)
-csv_reader = setup_csv_reader(cdr_csv)
+	cdr_data = analyze_cdr(csv_reader)
+	hours = hours_to_list(cdr_data['hours'])
+	for i in hours:
+		#print str(i[0]) + ': ' + str(i[1])
+		pass
 
-cdr_data = analyze_cdr(csv_reader)
-hours = hours_to_list(cdr_data['hours'])
-for i in hours:
-	print str(i[0]) + ': ' + str(i[1])
+	close_file(cdr_csv)
+	return hours
 
-
-close_file(cdr_csv)
+'''
+if __name__ == '__main__':
+	main()
+'''
