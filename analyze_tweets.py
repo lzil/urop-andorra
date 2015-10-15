@@ -19,12 +19,14 @@ def analyze_tweets(csv_reader):
 	author_location_dict = { }
 	languages_dict = { }
 	hours_dict = { }
+	hashtags_dict = { }
 
 	for count, row in enumerate(csv_reader):
-		author_id = row["author"]
-		time      = row["time"]
-		lat       = row["lat"]
-		lng       = row["lng"]
+		author_id    = row["author"]
+		time         = row["time"]
+		lat          = row["lat"]
+		lng          = row["lng"]
+		hashtag_list = row["hashtags"]
 		if author_location_dict.get(author_id) is None:
 			author_location_dict[author_id] = (((lat, lng), time))
 		else:
@@ -43,10 +45,15 @@ def analyze_tweets(csv_reader):
 		else:
 			hours_dict[hr] = 1
 
+		for hashtag in hashtag_list:
+			if hashtags_dict.get(hashtag) is None:
+				hashtags_dict[hashtag] = 0
+			hashtags_dict[hashtag] += 1
 	tweets_data['author_locations'] = author_location_dict
 	tweets_data['languages'] = languages_dict
 	tweets_data['hours'] = hours_dict
-		
+	tweets_data["hashtags_dict"] = hashtags_dict
+
 	return tweets_data
 
 def hours_to_list(hours_dict):
@@ -67,7 +74,7 @@ def langs_to_list(lang_dict):
 		langList.append((lang, num))
 	langList = sorted(langList, key=lambda x: x[1])
 	return langList
-	
+
 
 def main():
 
