@@ -22,8 +22,10 @@ with open('data/tweet.csv', 'rb') as csvfile:
 			hrs[hr] = 1
 	print '*****LANGUAGES*****'
 	langList = []
+	sm = 0
 	for lang, num in langs.iteritems():
 		langList.append((lang, num))
+		sm += num
 	langList = sorted(langList, key=lambda x: x[1])
 	for i in langList:
 		print i[0] + ': ' + str(i[1])
