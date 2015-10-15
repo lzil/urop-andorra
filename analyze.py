@@ -6,6 +6,7 @@ with open('data/tweet.csv', 'rb') as csvfile:
 	i = 0
 	langs = {}
 	hrs = {}
+	src = {}
 	for row in tweets:
 		if i > 30:
 			#break
@@ -20,6 +21,10 @@ with open('data/tweet.csv', 'rb') as csvfile:
 			hrs[hr] += 1
 		else:
 			hrs[hr] = 1
+		if row['source'] in src:
+			src[row['source']] += 1
+		else:
+			src[row['source']] = 1
 	print '*****LANGUAGES*****'
 	langList = []
 	sm = 0
@@ -35,4 +40,12 @@ with open('data/tweet.csv', 'rb') as csvfile:
 		hourList.append((hour, num))
 	hourList = sorted(hourList, key=lambda x: x[0])
 	for i in hourList:
+		print i[0] + ': ' + str(i[1])
+
+	print '*****Sources*****'
+	sourceList = []
+	for source, num in src.iteritems():
+		sourceList.append((source, num))
+	sourceList = sorted(sourceList, key=lambda x: x[1])
+	for i in sourceList:
 		print i[0] + ': ' + str(i[1])

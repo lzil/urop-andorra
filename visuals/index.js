@@ -13,7 +13,7 @@ $(document).ready(function() {
 	})
 })
 
-google.load("visualization", "1", {packages:["corechart", 'line']});
+google.load("visualization", "1", {packages:["corechart", 'line', 'bar']});
 google.setOnLoadCallback(drawChart);
 function drawChart() {
 
@@ -61,6 +61,37 @@ function drawBackgroundColor() {
         }
       };
 
-      var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.LineChart(document.getElementById('hours'));
+      chart.draw(data, options);
+    }
+
+google.setOnLoadCallback(drawBasic);
+
+function drawBasic() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['Platform', 'Number',],
+        ['Web Client', 1743],
+        ['Android', 1528],
+        ['Instagram', 779],
+        ['iPhone', 649],
+        ['iPad', 171],
+        ['Other', 218]
+      ]);
+
+      var options = {
+        title: 'Platforms for Tweeting',
+        chartArea: {width: '50%'},
+        hAxis: {
+          title: 'Number',
+          minValue: 0
+        },
+        vAxis: {
+          title: 'Platform'
+        }
+      };
+
+      var chart = new google.visualization.BarChart(document.getElementById('platform'));
+
       chart.draw(data, options);
     }
