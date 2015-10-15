@@ -1,10 +1,10 @@
 $(document).ready(function() {
-	$('.tab').hide();
-	$('#tab-stats').show();
+	//$('.tab').hide();
+	//$('#tab-stats').show();
 	$('.tab-links li').click(function() {
 		$('.tab-links li').removeClass('active');
 		$(this).addClass('active');
-		$('.tab').hide();
+		//$('.tab').hide();
 		console.log(this)
 		var id = $(this).attr('id')
 		console.log(id)
@@ -13,85 +13,113 @@ $(document).ready(function() {
 	})
 })
 
-google.load("visualization", "1", {packages:["corechart", 'line', 'bar']});
+google.load("visualization", "1", {packages:["corechart", 'line', 'bar', 'geochart']});
 google.setOnLoadCallback(drawChart);
 function drawChart() {
 
-var data = google.visualization.arrayToDataTable([
-  ['Language', 'percent'],
-  ['es',     1891],
-  ['pt',      1394],
-  ['en',  		842],
-  ['fr', 408],
-  ['it', 98],
-  ['nl', 45],
-  ['ro', 37],
-  ['other', 190]
-]);
+	var data = google.visualization.arrayToDataTable([
+	  ['Language', 'percent'],
+	  ['es',     1891],
+	  ['pt',      1394],
+	  ['en',  		842],
+	  ['fr', 408],
+	  ['it', 98],
+	  ['nl', 45],
+	  ['ro', 37],
+	  ['other', 190]
+	]);
 
-var options = {
-  title: 'Language Distribution'
-};
+	var options = {
+	  title: 'Language Distribution'
+	};
 
-var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	var chart = new google.visualization.PieChart(document.getElementById('piechart'));
 
-chart.draw(data, options);
+	chart.draw(data, options);
 }
 
 google.setOnLoadCallback(drawBackgroundColor);
 
 function drawBackgroundColor() {
-      var data = new google.visualization.DataTable();
-      data.addColumn('number', 'X');
-      data.addColumn('number', 'Calls');
+	var data = new google.visualization.DataTable();
+	data.addColumn('number', 'X');
+	data.addColumn('number', 'Calls');
 
-      data.addRows([
-        [0, 94],   [1, 160],  [2, 120],  [3, 127],  [4, 89],  [5, 95],
-        [6, 151],  [7, 143],  [8, 164],  [9, 182],  [10, 182], [11, 234],
-        [12, 234], [13, 244], [14, 234], [15, 262], [16, 311], [17, 250],
-        [18, 293], [19, 341], [20, 379], [21, 368], [22, 287], [23, 185]
-      ]);
+	data.addRows([
+	[0, 94],   [1, 160],  [2, 120],  [3, 127],  [4, 89],  [5, 95],
+	[6, 151],  [7, 143],  [8, 164],  [9, 182],  [10, 182], [11, 234],
+	[12, 234], [13, 244], [14, 234], [15, 262], [16, 311], [17, 250],
+	[18, 293], [19, 341], [20, 379], [21, 368], [22, 287], [23, 185]
+	]);
 
-      var options = {
-        hAxis: {
-          title: 'Number of Calls'
-        },
-        vAxis: {
-          title: 'Hour'
-        }
-      };
+	var options = {
+	hAxis: {
+	  title: 'Number of Calls'
+	},
+	vAxis: {
+	  title: 'Hour'
+	}
+	};
 
-      var chart = new google.visualization.LineChart(document.getElementById('hours'));
-      chart.draw(data, options);
-    }
+	var chart = new google.visualization.LineChart(document.getElementById('hours'));
+	chart.draw(data, options);
+}
 
 google.setOnLoadCallback(drawBasic);
 
 function drawBasic() {
+	var data = google.visualization.arrayToDataTable([
+	['Platform', 'Number',],
+	['Web Client', 1743],
+	['Android', 1528],
+	['Instagram', 779],
+	['iPhone', 649],
+	['iPad', 171],
+	['Other', 218]
+	]);
 
+	var options = {
+	title: 'Platforms for Tweeting',
+	chartArea: {width: '50%'},
+	hAxis: {
+	  title: 'Number',
+	  minValue: 0
+	},
+	vAxis: {
+	  title: 'Platform'
+	}
+	};
+
+	var chart = new google.visualization.BarChart(document.getElementById('platform'));
+
+	chart.draw(data, options);
+}
+
+google.setOnLoadCallback(drawMarkersMap);
+
+      function drawMarkersMap() {
       var data = google.visualization.arrayToDataTable([
-        ['Platform', 'Number',],
-        ['Web Client', 1743],
-        ['Android', 1528],
-        ['Instagram', 779],
-        ['iPhone', 649],
-        ['iPad', 171],
-        ['Other', 218]
+        ['City',   'Population', 'Area'],
+        ['Rome',      2761477,    1285.31],
+        ['Milan',     1324110,    181.76],
+        ['Naples',    959574,     117.27],
+        ['Turin',     907563,     130.17],
+        ['Palermo',   655875,     158.9],
+        ['Genoa',     607906,     243.60],
+        ['Bologna',   380181,     140.7],
+        ['Florence',  371282,     102.41],
+        ['Fiumicino', 67370,      213.44],
+        ['Anzio',     52192,      43.43],
+        ['Ciampino',  38262,      11]
       ]);
 
       var options = {
-        title: 'Platforms for Tweeting',
-        chartArea: {width: '50%'},
-        hAxis: {
-          title: 'Number',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'Platform'
-        }
+        region: 'IT',
+        displayMode: 'markers',
+        colorAxis: {colors: ['green', 'blue']}
       };
 
-      var chart = new google.visualization.BarChart(document.getElementById('platform'));
-
+      var chart = new google.visualization.GeoChart(document.getElementById('geochart'));
       chart.draw(data, options);
-    }
+    };
+
