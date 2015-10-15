@@ -19,10 +19,15 @@ def analyze_cdr(csv_reader):
 
 	for count, row in enumerate(csv_reader):
 		hr = row['intime'].split()[1].split(':')[0]
+		hrf = row['fitime'].split()[1].split(':')[0]
 		if hr in hours_dict:
-			hours_dict[hr] += 1
+			hours_dict[hr] += .5
 		else:
-			hours_dict[hr] = 1
+			hours_dict[hr] = .5
+		if hrf in hours_dict:
+			hours_dict[hrf] += .5
+		else:
+			hours_dict[hrf] = .5
 
 	cdr_data['hours'] = hours_dict
 		
@@ -37,7 +42,7 @@ def hours_to_list(hours_dict):
 	for i in hourList:
 		sm += i[1]
 	for i in range(len(hourList)):
-		hourList[i][1] *= 1.0 / sm
+		hourList[i][1] *= 100. / sm
 	return hourList
 
 def langs_to_list(lang_dict):
@@ -49,14 +54,20 @@ def langs_to_list(lang_dict):
 	
 
 
+def main():
+	cdr_csv = open_file(DATA_FILE)
+	csv_reader = setup_csv_reader(cdr_csv)
 
-cdr_csv = open_file(DATA_FILE)
-csv_reader = setup_csv_reader(cdr_csv)
+	cdr_data = analyze_cdr(csv_reader)
+	hours = hours_to_list(cdr_data['hours'])
+	for i in hours:
+		#print str(i[0]) + ': ' + str(i[1])
+		pass
 
-cdr_data = analyze_cdr(csv_reader)
-hours = hours_to_list(cdr_data['hours'])
-for i in hours:
-	print str(i[0]) + ': ' + str(i[1])
+	close_file(cdr_csv)
+	return hours
 
-
-close_file(cdr_csv)
+'''
+if __name__ == '__main__':
+	main()
+'''

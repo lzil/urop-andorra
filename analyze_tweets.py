@@ -59,8 +59,13 @@ def analyze_tweets(csv_reader):
 def hours_to_list(hours_dict):
 	hourList = []
 	for hour, num in hours_dict.iteritems():
-		hourList.append((hour, num))
+		hourList.append([hour, num])
 	hourList = sorted(hourList, key=lambda x: x[0])
+	sm = 0
+	for i in hourList:
+		sm += i[1]
+	for i in range(len(hourList)):
+		hourList[i][1] *= 100. / sm
 	return hourList
 
 def langs_to_list(lang_dict):
@@ -71,14 +76,20 @@ def langs_to_list(lang_dict):
 	return langList
 
 
+def main():
+
+	tweets_csv = open_file(DATA_FILE)
+	csv_reader = setup_csv_reader(tweets_csv)
+
+	tweets_data = analyze_tweets(csv_reader)
+	#print hours_to_list(tweets_data['hours'])
+	#print langs_to_list(tweets_data['languages'])
 
 
-tweets_csv = open_file(DATA_FILE)
-csv_reader = setup_csv_reader(tweets_csv)
+	close_file(tweets_csv)
+	return hours_to_list(tweets_data['hours'])
 
-tweets_data = analyze_tweets(csv_reader)
-print hours_to_list(tweets_data['hours'])
-print langs_to_list(tweets_data['languages'])
-
-
-close_file(tweets_csv)
+'''
+if __name__ == '__main__':
+	main()
+'''

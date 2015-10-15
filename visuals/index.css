@@ -1,0 +1,17 @@
+body {
+  padding-top: 50px;
+  margin:0;
+  font-family:PT Sans;
+}
+.title-text {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.visuals {
+	background-color:orange;
+	text-align:center;
+	width:80%;
+	position:absolute;
+	left:10%;
+}
