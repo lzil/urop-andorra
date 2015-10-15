@@ -1,9 +1,17 @@
 body {
   padding-top: 50px;
   margin:0;
-  height:1000px;
+  font-family:PT Sans;
 }
-.starter-template {
+.title-text {
   padding: 40px 15px;
   text-align: center;
+}
+
+.visuals {
+	background-color:orange;
+	text-align:center;
+	width:80%;
+	position:absolute;
+	left:10%;
 }
