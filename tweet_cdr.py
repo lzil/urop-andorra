@@ -7,4 +7,4 @@ print tweets_hours
 print cdr_hours
 
 for i in range(24):
-	print tweets_hours[i][1] - cdr_hours[i][1]
+	print str(tweets_hours[i][0]) + ': ' + str(tweets_hours[i][1] - cdr_hours[i][1])
