@@ -8,10 +8,11 @@ body {
   text-align: center;
 }
 
-.visuals {
+
+.tab {
+	position:absolute;
 	text-align:center;
 	width:80%;
-	position:absolute;
 	left:10%;
 }
 

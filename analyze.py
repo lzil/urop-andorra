@@ -7,7 +7,10 @@ with open('data/tweet.csv', 'rb') as csvfile:
 	langs = {}
 	hrs = {}
 	src = {}
+	f = open('locs.txt', 'w')
 	for row in tweets:
+		if row['lat'] != '':
+			f.write('[' + str(row['lat']) + ','+str(row['lng'])+'],')
 		if i > 30:
 			#break
 			pass
@@ -49,3 +52,4 @@ with open('data/tweet.csv', 'rb') as csvfile:
 	sourceList = sorted(sourceList, key=lambda x: x[1])
 	for i in sourceList:
 		print i[0] + ': ' + str(i[1])
+	f.close()
