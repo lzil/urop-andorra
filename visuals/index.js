@@ -2,15 +2,23 @@ $(document).ready(function() {
 	//$('.tab').hide();
 	//$('#tab-stats').show();
 	$('.tab-links li').click(function() {
-		$('.tab-links li').removeClass('active');
-		$(this).addClass('active');
-		//$('.tab').hide();
-		console.log(this)
-		var id = $(this).attr('id')
-		console.log(id)
-		$('#tab-' + id).show();
-
+		
 	})
+
+	$('a[href*=#]:not([href=#])').click(function() {
+		$('.tab-links li').removeClass('active');
+		$(this).parent().addClass('active');
+		if (location.pathname.replace(/^\//,'') == this.pathname.replace(/^\//,'') && location.hostname == this.hostname) {
+			var target = $(this.hash);
+			target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+			if (target.length) {
+				$('html,body').animate({
+					scrollTop: target.offset().top
+				}, 800);
+				return false;
+			}
+		}
+	});
 })
 
 google.load("visualization", "1", {packages:["corechart", 'line', 'bar', 'geochart', 'map']});
@@ -94,6 +102,8 @@ function drawBasic() {
 
 	chart.draw(data, options);
 }
+
+google.setOnLoadCallback(drawMap);
 
 function drawMap() {
 	var data = google.visualization.arrayToDataTable([
