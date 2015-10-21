@@ -23,3 +23,12 @@ body {
 .viss:hover {
 	transform: scale(1.03);
 }
+
+.embed1 {
+	width:100%;
+	height:400px;
+}
+.embed2 {
+	width:100%;
+	height:700px;
+}

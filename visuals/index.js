@@ -62,11 +62,12 @@ function drawBackgroundColor() {
 
 	var options = {
 	hAxis: {
-	  title: 'Number of Calls'
+	  title: 'Hour'
 	},
 	vAxis: {
-	  title: 'Hour'
-	}
+	  title: '#Calls'
+	},
+	title: 'Number of Calls by Hour'
 	};
 
 	var chart = new google.visualization.LineChart(document.getElementById('hours'));

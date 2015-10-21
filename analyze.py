@@ -7,8 +7,11 @@ with open('data/tweet.csv', 'rb') as csvfile:
 	langs = {}
 	hrs = {}
 	src = {}
+	words = []
 	f = open('locs.txt', 'w')
+	g = open('words.txt', 'w')
 	for row in tweets:
+		words += row['text'].split()
 		if row['lat'] != '':
 			f.write('[' + str(row['lat']) + ','+str(row['lng'])+'],')
 		if i > 30:
@@ -52,4 +55,9 @@ with open('data/tweet.csv', 'rb') as csvfile:
 	sourceList = sorted(sourceList, key=lambda x: x[1])
 	for i in sourceList:
 		print i[0] + ': ' + str(i[1])
+	wds = ['que', 'en', 'lo', 'por', 'a', 'le', 'pero', 'y', 'de', 'eu', 'si', 'yo', 'esta', 'un', 'una', 'es', 'tu', 'la', 'el', 'del', 'los', 'al', 'com', 'como', 'e', 'ir', 'em', 'todo', 'ya', 'ver', 'nos', 'ja', 'va', 'ser', 'les', 'et', 'mi', 'con', 'da', 'sei', 'no', 'se', 'um', 'ha', 'to', 'para', 'je', 'eres', 'asi', 'mis', 'so', 'algo', 'is', 'na']
+	for i in words:
+		if i.lower() not in wds and len(i) != 1:
+			g.write(i + ' ')
 	f.close()
+	g.close()
