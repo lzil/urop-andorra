@@ -1,6 +1,6 @@
-import csv, math
+import csv, math, re
 
-DATA_FILE = "data/tweets_fr.csv"
+DATA_FILE = "data/tweets_es.csv"
 LOCATION_COORDS = {
 	'Soldeu':	(42.577608,1.6643343),
 	'Canillo':	(42.5665274,1.5977744),
@@ -40,9 +40,19 @@ def tweet_locations(csv_reader):
 				if dst < mnn:
 					mnn = dst
 					mnc = i
-			city_counts[mnc].append(row['id'])
+			city_counts[mnc].append(row['text'])
 	return city_counts
 
+def topics(texts):
+	d = {}
+	for text in texts:
+		words = text.split()
+		for i in words:
+			if i in d:
+				d[i] += 1
+			else: d[i] = 1
+	ordered = [(k) for k in sorted(d, key=d.get, reverse=True)]
+	return ordered
 
 def main():
 
@@ -51,7 +61,11 @@ def main():
 
 	tweets_data = tweet_locations(csv_reader)
 	for i in tweets_data:
-		print i + ": " + str(len(tweets_data[i]))
+		print i
+		#print topics(tweets_data[i])
+		for j in tweets_data[i]:
+			print j
+		print '\n'
 
 
 	close_file(tweets_csv)
