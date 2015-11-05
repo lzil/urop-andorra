@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 import csv, math, re
 
 DATA_FILE = "data/tweets_es.csv"
@@ -9,6 +11,8 @@ LOCATION_COORDS = {
 	'El Pas de la Casa': (42.542445,1.7303751),
 	'Andorra la Vella': (42.5050848,1.5116108)
 }
+common_fr = ['mais', 'je', 'la', 'en', 'de', 'suis', 'il', 'est', 'un', 'me', 'et', 'ça', 'le', 'no', 'se']
+common_es = ['por', 'para', 'es', 'en', 'el', 'la', 'las', 'los', 'lo', 'y', 'une', 'de', 'un', 'una', 'con', 'si', 'le', 'hoy', 'no', 'que', 'se', 'del', 'le', 'tu', 'te', 'mas']
 
 def open_file(filename):
 	return open(filename, "r")
@@ -51,6 +55,7 @@ def topics(texts):
 			if i in d:
 				d[i] += 1
 			else: d[i] = 1
+
 	ordered = [(k) for k in sorted(d, key=d.get, reverse=True)]
 	return ordered
 
